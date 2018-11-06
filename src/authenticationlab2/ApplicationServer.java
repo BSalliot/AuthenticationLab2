@@ -11,7 +11,7 @@ import java.rmi.registry.Registry;
 
 /**
  *
- * @author EliteBook
+ * @author Salliot
  */
 public class ApplicationServer {
     

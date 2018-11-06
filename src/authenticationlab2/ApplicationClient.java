@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
 
 /**
  *
- * @author EliteBook
+ * @author Salliot
  */
 public class ApplicationClient {
 
