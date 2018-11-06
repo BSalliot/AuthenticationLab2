@@ -8,9 +8,9 @@ import java.rmi.server.UnicastRemoteObject;
  *
  * @author EliteBook
  */
-public class HelloServant extends UnicastRemoteObject implements HelloService{
+public class PrintServant extends UnicastRemoteObject implements PrintService{
 
-    public HelloServant() throws RemoteException {
+    public PrintServant() throws RemoteException {
         super();
     }
 
