@@ -21,7 +21,7 @@ public class PrintServant extends UnicastRemoteObject implements PrintService{
 
     @Override
     public void print(String filename, String printer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Call print: "+ filename +" on "+ printer);
     }
 
     @Override
