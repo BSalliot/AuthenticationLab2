@@ -20,4 +20,9 @@ public class ApplicationClient {
         System.out.println(test);
     }
     
+    public String getHash(String password)
+    {
+        return password;
+    }
+    
 }

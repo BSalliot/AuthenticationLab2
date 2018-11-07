@@ -8,6 +8,8 @@ import java.rmi.RemoteException;
  */
 public interface PrintService extends Remote{
     
+    public boolean initPrinter();
+    
     public String echo(String input) throws RemoteException;
     
     public String print(String filename, String printer) throws RemoteException;   // prints file filename on the specified printer
@@ -19,4 +21,6 @@ public interface PrintService extends Remote{
     public String status() throws RemoteException;  // prints status of printer on the user's display
     public String readConfig(String parameter) throws RemoteException;   // prints the value of the parameter on the user's display
     public String setConfig(String parameter, String value) throws RemoteException;   // sets the parameter to value
+    
+    public boolean logIn(String username, String hashed_password) throws RemoteException;
 }
