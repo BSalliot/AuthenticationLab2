@@ -16,7 +16,8 @@ public class ApplicationClient {
      */
     public static void main(String[] args) throws NotBoundException, MalformedURLException, RemoteException {
         PrintService service  = (PrintService) Naming.lookup("rmi://localhost:5099/printer");
-        service.print("test_print", "printer 1");
+        String test = service.print("test_print", "printer 1");
+        System.out.println(test);
     }
     
 }

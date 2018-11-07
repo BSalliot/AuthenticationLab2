@@ -20,48 +20,66 @@ public class PrintServant extends UnicastRemoteObject implements PrintService{
     }
 
     @Override
-    public void print(String filename, String printer) throws RemoteException {
-        System.out.println("[PrintServant] Call PRINT: "+ filename +" on "+ printer);
+    public String print(String filename, String printer) throws RemoteException {
+        String toReturn = "[PrintServant] Call PRINT: "+ filename +" on "+ printer;
+        System.out.println(toReturn);
+        return toReturn;
     }
 
     @Override
-    public void queue() throws RemoteException{
-        System.out.println("[PrintServant] Call QUEUE");
+    public String queue() throws RemoteException{
+        String toReturn = "[PrintServant] Call QUEUE";
+        System.out.println(toReturn);
+        return toReturn;
     }
 
     @Override
-    public void topQueue(int job) throws RemoteException{
-        System.out.println("[PrintServant] Call TOPQUEUE: "+ job);
+    public String topQueue(int job) throws RemoteException{
+        String toReturn = "[PrintServant] Call TOPQUEUE: "+ job;
+        System.out.println(toReturn);
+        return toReturn;
     }
 
     @Override
-    public void start() throws RemoteException{
-        System.out.println("[PrintServant] Call START");
+    public String start() throws RemoteException{
+        String toReturn = "[PrintServant] Call START";
+        System.out.println(toReturn);
+        return toReturn;
     }
 
     @Override
-    public void stop() throws RemoteException{
-        System.out.println("[PrintServant] Call STOP");
+    public String stop() throws RemoteException{
+       String toReturn = "[PrintServant] Call STOP";
+       System.out.println(toReturn);
+       return toReturn;
     }
 
     @Override
-    public void restart() throws RemoteException{
-        System.out.println("[PrintServant] Call RESTART");
+    public String restart() throws RemoteException{
+        String toReturn = "[PrintServant] Call RESTART";
+        System.out.println(toReturn);
+        return toReturn;
     }
 
     @Override
-    public void status() throws RemoteException{
-        System.out.println("[PrintServant] Call STATUS");
+    public String status() throws RemoteException{
+        String toReturn = "[PrintServant] Call STATUS";
+        System.out.println(toReturn);
+        return toReturn;
     }
 
     @Override
-    public void readConfig(String parameter) throws RemoteException{
-        System.out.println("[PrintServant] Call READ CONFIG: "+ parameter);
+    public String readConfig(String parameter) throws RemoteException{
+        String toReturn = "[PrintServant] Call READ CONFIG: "+ parameter;
+        System.out.println(toReturn);
+        return toReturn;
     }
 
     @Override
-    public void setConfig(String parameter, String value) throws RemoteException{
-        System.out.println("[PrintServant] Call SET CONFIG: "+ parameter +" to "+ value);
+    public String setConfig(String parameter, String value) throws RemoteException{
+        String toReturn = "[PrintServant] Call SET CONFIG: "+ parameter +" to "+ value;
+        System.out.println(toReturn);
+        return toReturn;
     }
     
 }
