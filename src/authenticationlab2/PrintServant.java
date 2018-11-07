@@ -136,6 +136,7 @@ public class PrintServant extends UnicastRemoteObject implements PrintService{
             Logger.getLogger(PrintServant.class.getName()).log(Level.SEVERE, null, ex);
         }               
         return loggedin;
+    }
    
 
 
