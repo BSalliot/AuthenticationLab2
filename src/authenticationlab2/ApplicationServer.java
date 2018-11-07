@@ -17,6 +17,7 @@ public class ApplicationServer {
     
    public static void main (String[] args) throws RemoteException {
        Registry registry = LocateRegistry.createRegistry(5099);
-       registry.rebind("hello", new PrintServant());
+       registry.rebind("printer", new PrintServant());
+       System.out.println("Server on port 5099 started");
    }
 }
