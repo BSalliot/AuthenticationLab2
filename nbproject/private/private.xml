@@ -5,8 +5,8 @@
         <group name="Projet">
             <file>file:/C:/Users/EliteBook/Documents/INSA/4IF/DTU/COURS/Data_Security/LAB2/AuthenticationLab2/src/authenticationlab2/ApplicationServer.java</file>
             <file>file:/C:/Users/EliteBook/Documents/INSA/4IF/DTU/COURS/Data_Security/LAB2/AuthenticationLab2/src/authenticationlab2/ApplicationClient.java</file>
-            <file>file:/C:/Users/EliteBook/Documents/INSA/4IF/DTU/COURS/Data_Security/LAB2/AuthenticationLab2/src/authenticationlab2/HelloService.java</file>
-            <file>file:/C:/Users/EliteBook/Documents/INSA/4IF/DTU/COURS/Data_Security/LAB2/AuthenticationLab2/src/authenticationlab2/HelloServant.java</file>
+            <file>file:/C:/Users/EliteBook/Documents/INSA/4IF/DTU/COURS/Data_Security/LAB2/AuthenticationLab2/src/authenticationlab2/PrintServant.java</file>
+            <file>file:/C:/Users/EliteBook/Documents/INSA/4IF/DTU/COURS/Data_Security/LAB2/AuthenticationLab2/src/authenticationlab2/PrintService.java</file>
         </group>
     </open-files>
 </project-private>

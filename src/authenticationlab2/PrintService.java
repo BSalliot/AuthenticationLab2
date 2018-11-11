@@ -1,16 +1,22 @@
 package authenticationlab2;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.security.NoSuchAlgorithmException;
 /**
  *
  * @author Salliot
  */
 public interface PrintService extends Remote{
     
-    public boolean initPrinter();
+    
     
     public String echo(String input) throws RemoteException;
+    
+    public String printerHash(String toHash) throws NoSuchAlgorithmException, FileNotFoundException, IOException;
+    public boolean initPrinter() throws RemoteException;
     
     public String print(String filename, String printer) throws RemoteException;   // prints file filename on the specified printer
     public String queue() throws RemoteException;   // lists the print queue on the user's display in lines of the form <job number>   <file name>

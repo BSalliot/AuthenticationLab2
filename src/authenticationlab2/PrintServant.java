@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,21 +23,41 @@ public class PrintServant extends UnicastRemoteObject implements PrintService{
     public PrintServant() throws RemoteException {
         super();
     }
+
+    @Override
+    public String printerHash(String toHash) throws NoSuchAlgorithmException, FileNotFoundException, IOException
+    {
+        MessageDigest md = MessageDigest.getInstance("SHA-1");           
+        byte[] toHashBytes = new byte[1024]; 
+        byte[] hash = md.digest(toHashBytes);
+        
+        StringBuffer sb = new StringBuffer();
+        for (byte b : hash) 
+        {
+            //sb.append(Integer.toString((b & 0xff)+0x100, 16).substring(1));
+            sb.append(String.format("%02X ", b));
+        }
+        String hash_string = sb.toString();
+        
+        return hash_string;
+    }
+    
+    
     
     @Override
-    public boolean initPrinter()
+    public boolean initPrinter() throws RemoteException
     {
         PrintWriter writer;
         try {
             writer = new PrintWriter("passwords_file.txt", "UTF-8");
-            writer.println("john1:@bcdefghI1"); //HASH THE PASSWORDS !
-            writer.println("john2:@bcdefghI2");
-            writer.println("john3:@bcdefghI3");
+            writer.println("john1:"+printerHash("@bcdefghI1"));
+            writer.println("john2:"+printerHash("@bcdefghI2"));
+            writer.println("john3:"+printerHash("@bcdefghI3"));
             writer.close();
             return true;
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(PrintServant.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
+        } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(PrintServant.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(PrintServant.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;        
