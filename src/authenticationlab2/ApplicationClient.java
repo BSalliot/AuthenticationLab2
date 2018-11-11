@@ -18,18 +18,28 @@ public class ApplicationClient {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws NotBoundException, MalformedURLException, RemoteException {
+    public static void main(String[] args) throws NotBoundException, MalformedURLException, RemoteException, NoSuchAlgorithmException {
         PrintService service  = (PrintService) Naming.lookup("rmi://localhost:5099/printer");
         String test = service.print("test_print", "printer 1");
         System.out.println(test);
         
-        
+        boolean res_init = service.initPrinter();
+        if (res_init) {
+            System.out.println("init ok");
+            boolean loggedIn = service.logIn("john1", clientHash("@bcdefghI1"));
+            if (loggedIn) {
+                System.out.println("logged in!");
+            }
+            else {
+                System.out.println("log in failed");
+            }
+        }
     }
     
-    public String clientHash(String password) throws NoSuchAlgorithmException
+    public static String clientHash(String password) throws NoSuchAlgorithmException
     {
         MessageDigest md = MessageDigest.getInstance("SHA-1");           
-        byte[] toHashBytes = new byte[1024]; 
+        byte[] toHashBytes = password.getBytes();
         byte[] hash = md.digest(toHashBytes);
         
         StringBuffer sb = new StringBuffer();

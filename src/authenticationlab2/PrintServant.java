@@ -28,7 +28,7 @@ public class PrintServant extends UnicastRemoteObject implements PrintService{
     public String printerHash(String toHash) throws NoSuchAlgorithmException, FileNotFoundException, IOException
     {
         MessageDigest md = MessageDigest.getInstance("SHA-1");           
-        byte[] toHashBytes = new byte[1024]; 
+        byte[] toHashBytes = toHash.getBytes();
         byte[] hash = md.digest(toHashBytes);
         
         StringBuffer sb = new StringBuffer();
@@ -142,14 +142,15 @@ public class PrintServant extends UnicastRemoteObject implements PrintService{
             while (line != null && !loggedin)
             {
                 index = line.indexOf(":");
-                if(line.substring(0,index) == username)
+                if(line.substring(0,index).equals(username))
                 {
-                    if(line.substring(index) == hashed_password)
+                    if(line.substring(index+1).equals(hashed_password))
                     {
                         loggedin=true;
                     }
                 }
                 line = reader.readLine();
+                
             }
             reader.close();
 	} catch (FileNotFoundException ex) {
