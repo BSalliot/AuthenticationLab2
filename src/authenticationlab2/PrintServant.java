@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,26 +21,10 @@ import java.util.logging.Logger;
  */
 public class PrintServant extends UnicastRemoteObject implements PrintService{
 
+    private ArrayList<String> usersLoggedIn = new ArrayList<String>();
+    
     public PrintServant() throws RemoteException {
         super();
-    }
-
-    @Override
-    public String printerHash(String toHash) throws NoSuchAlgorithmException, FileNotFoundException, IOException
-    {
-        MessageDigest md = MessageDigest.getInstance("SHA-1");           
-        byte[] toHashBytes = toHash.getBytes();
-        byte[] hash = md.digest(toHashBytes);
-        
-        StringBuffer sb = new StringBuffer();
-        for (byte b : hash) 
-        {
-            //sb.append(Integer.toString((b & 0xff)+0x100, 16).substring(1));
-            sb.append(String.format("%02X ", b));
-        }
-        String hash_string = sb.toString();
-        
-        return hash_string;
     }
     
     
@@ -50,9 +35,9 @@ public class PrintServant extends UnicastRemoteObject implements PrintService{
         PrintWriter writer;
         try {
             writer = new PrintWriter("passwords_file.txt", "UTF-8");
-            writer.println("john1:"+printerHash("@bcdefghI1"));
-            writer.println("john2:"+printerHash("@bcdefghI2"));
-            writer.println("john3:"+printerHash("@bcdefghI3"));
+            writer.println("john1:"+HashService.hash("john1","@bcdefghI1"));
+            writer.println("john2:"+HashService.hash("john2","@bcdefghI2"));
+            writer.println("john3:"+HashService.hash("john3","@bcdefghI3"));
             writer.close();
             return true;
         } catch (NoSuchAlgorithmException ex) {
@@ -69,64 +54,139 @@ public class PrintServant extends UnicastRemoteObject implements PrintService{
     }
 
     @Override
-    public String print(String filename, String printer) throws RemoteException {
-        String toReturn = "[PrintServant] Call PRINT: "+ filename +" on "+ printer;
+    public String print(String username, String filename, String printer) throws RemoteException {
+        String toReturn;
+        if (checkLoggedIn(username)) 
+        {
+            toReturn = "[PrintServant] Call PRINT: "+ filename +" on "+ printer; 
+        }
+        else
+        {
+            toReturn = "[PrintServant] Please log in before using this function";
+        }
+        
         System.out.println(toReturn);
         return toReturn;
     }
 
     @Override
-    public String queue() throws RemoteException{
-        String toReturn = "[PrintServant] Call QUEUE";
+    public String queue(String username) throws RemoteException{
+        String toReturn;
+        if (checkLoggedIn(username)) 
+        {
+            toReturn = "[PrintServant] Call QUEUE";
+        }
+        else
+        {
+            toReturn = "[PrintServant] Please log in before using this function";
+        }
         System.out.println(toReturn);
         return toReturn;
     }
 
     @Override
-    public String topQueue(int job) throws RemoteException{
-        String toReturn = "[PrintServant] Call TOPQUEUE: "+ job;
+    public String topQueue(String username, int job) throws RemoteException{
+        String toReturn;
+        if (checkLoggedIn(username)) 
+        {
+            toReturn = "[PrintServant] Call TOPQUEUE: "+ job;
+        }
+        else
+        {
+            toReturn = "[PrintServant] Please log in before using this function";
+        }
         System.out.println(toReturn);
         return toReturn;
     }
 
     @Override
-    public String start() throws RemoteException{
-        String toReturn = "[PrintServant] Call START";
+    public String start(String username) throws RemoteException{
+        String toReturn;
+        if (checkLoggedIn(username)) 
+        {
+            toReturn = "[PrintServant] Call START";        
+        }
+        else
+        {
+            toReturn = "[PrintServant] Please log in before using this function";
+        } 
         System.out.println(toReturn);
         return toReturn;
     }
 
     @Override
-    public String stop() throws RemoteException{
-       String toReturn = "[PrintServant] Call STOP";
+    public String stop(String username) throws RemoteException{
+        String toReturn;
+        if (checkLoggedIn(username)) 
+        {
+            toReturn = "[PrintServant] Call STOP";        
+        }
+        else
+        {
+            toReturn = "[PrintServant] Please log in before using this function";
+        }
        System.out.println(toReturn);
        return toReturn;
     }
 
     @Override
-    public String restart() throws RemoteException{
-        String toReturn = "[PrintServant] Call RESTART";
+    public String restart(String username) throws RemoteException{
+        String toReturn;
+        if (checkLoggedIn(username)) 
+        {
+            toReturn = "[PrintServant] Call RESTART";        
+        }
+        else
+        {
+            toReturn = "[PrintServant] Please log in before using this function";
+        } 
+        
         System.out.println(toReturn);
         return toReturn;
     }
 
     @Override
-    public String status() throws RemoteException{
-        String toReturn = "[PrintServant] Call STATUS";
+    public String status(String username) throws RemoteException{
+        String toReturn;
+        if (checkLoggedIn(username)) 
+        {
+            toReturn = "[PrintServant] Call STATUS";        
+        }
+        else
+        {
+            toReturn = "[PrintServant] Please log in before using this function";
+        } 
+        
         System.out.println(toReturn);
         return toReturn;
     }
 
     @Override
-    public String readConfig(String parameter) throws RemoteException{
-        String toReturn = "[PrintServant] Call READ CONFIG: "+ parameter;
+    public String readConfig(String username, String parameter) throws RemoteException{
+        String toReturn;
+        if (checkLoggedIn(username)) 
+        {
+            toReturn = "[PrintServant] Call READ CONFIG: "+ parameter;      
+        }
+        else
+        {
+            toReturn = "[PrintServant] Please log in before using this function";
+        } 
         System.out.println(toReturn);
         return toReturn;
     }
 
     @Override
-    public String setConfig(String parameter, String value) throws RemoteException{
-        String toReturn = "[PrintServant] Call SET CONFIG: "+ parameter +" to "+ value;
+    public String setConfig(String username, String parameter, String value) throws RemoteException{
+        String toReturn;
+        if (checkLoggedIn(username)) 
+        {
+            toReturn = "[PrintServant] Call SET CONFIG: "+ parameter +" to "+ value;     
+        }
+        else
+        {
+            toReturn = "[PrintServant] Please log in before using this function";
+        }  
         System.out.println(toReturn);
         return toReturn;
     }
@@ -135,18 +195,18 @@ public class PrintServant extends UnicastRemoteObject implements PrintService{
     public boolean logIn(String username, String hashed_password) throws RemoteException
     {    
         int index=0;
-        boolean loggedin=false;
         try {
             BufferedReader reader = new BufferedReader(new FileReader("passwords_file.txt"));
             String line = reader.readLine();
-            while (line != null && !loggedin)
+            while (line != null)
             {
                 index = line.indexOf(":");
                 if(line.substring(0,index).equals(username))
                 {
                     if(line.substring(index+1).equals(hashed_password))
                     {
-                        loggedin=true;
+                        usersLoggedIn.add(username);
+                        return true;
                     }
                 }
                 line = reader.readLine();
@@ -158,7 +218,16 @@ public class PrintServant extends UnicastRemoteObject implements PrintService{
         } catch (IOException ex) {
             Logger.getLogger(PrintServant.class.getName()).log(Level.SEVERE, null, ex);
         }               
-        return loggedin;
+        return false;
+    }
+    
+    private boolean checkLoggedIn(String username)
+    {
+        if (usersLoggedIn.isEmpty()) 
+        {
+            return false;
+        }
+        return usersLoggedIn.contains(username);
     }
    
 
