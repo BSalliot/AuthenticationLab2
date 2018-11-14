@@ -48,10 +48,6 @@ public class PrintServant extends UnicastRemoteObject implements PrintService{
         return false;        
     }
 
-    @Override
-    public String echo(String input) throws RemoteException {
-        return "From server: "+input;
-    }
 
     @Override
     public String print(String username, String filename, String printer) throws RemoteException {

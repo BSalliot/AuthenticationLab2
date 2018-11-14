@@ -42,7 +42,7 @@ public class ApplicationClient {
                 System.out.println("log in failed");
             }
             
-            test = service.print("john1", "test_print", "printer 1");
+            test = service.print(username, "test_print", "printer 1");
             System.out.println(test);
         }
     }

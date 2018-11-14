@@ -10,11 +10,7 @@ import java.security.NoSuchAlgorithmException;
  * @author Salliot
  */
 public interface PrintService extends Remote{
-    
-    
-    
-    public String echo(String input) throws RemoteException;
-    
+
     public boolean initPrinter() throws RemoteException;
     
     public String print(String username, String filename, String printer) throws RemoteException;   // prints file filename on the specified printer
